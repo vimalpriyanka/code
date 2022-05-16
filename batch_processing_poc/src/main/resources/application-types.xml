@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="area" format="csv">
+      <types:shape format="weave" example="input/input.csv"><![CDATA[%dw 2.0
+
+type area = Array<{|  ID: String,   AreaCode: String,   Year: Number,   Count: Number,   Population: Number|}> {"isQuotedString": "false",
+"header": "true",
+"headerLineNumber": "0",
+"separator": ","}
+
+]]></types:shape>
+      <types:properties>
+        <types:property name="headerLineNumber" value="0"/>
+        <types:property name="header" value="true"/>
+        <types:property name="isQuotedString" value="false"/>
+        <types:property name="separator" value=","/>
+      </types:properties>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#0f4eee4e-de7b-4553-b6c6-94e8d48433b6">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="area"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="area"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#be068f75-8af8-48ac-9e32-98b16ae7599a">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="area"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
